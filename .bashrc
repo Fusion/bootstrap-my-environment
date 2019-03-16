@@ -57,13 +57,13 @@ alias l="ls -CF"
 # direnv
 [ "$(which direnv)" == "" ] && {
     echo "# Installing direnv";
-    if [ $PKGER == "brew"]; then
+    if [ $PKGER == "brew" ]; then
         brew install direnv
-    elif [ $PKGER == "apt"]; then
+    elif [ $PKGER == "apt" ]; then
         sudo apt-get install -y direnv
-    elif [ $PKGER == "apk"]; then
+    elif [ $PKGER == "apk" ]; then
         sudo apk add -y direnv
-    elif [ $PKGER == "yum"]; then
+    elif [ $PKGER == "yum" ]; then
         sudo yum install -y direnv
     fi
 }
@@ -71,13 +71,13 @@ eval "$(direnv hook bash)"
 # fasd
 [ "$(which fasd)" == "" ] && {
     echo "# Installing fasd";
-    if [ $PKGER == "brew"]; then
+    if [ $PKGER == "brew" ]; then
         brew install fasd
-    elif [ $PKGER == "apt"]; then
+    elif [ $PKGER == "apt" ]; then
         sudo apt-get install -y fasd
-    elif [ $PKGER == "apk"]; then
+    elif [ $PKGER == "apk" ]; then
         sudo apk add -y fasd
-    elif [ $PKGER == "yum"]; then
+    elif [ $PKGER == "yum" ]; then
         sudo yum install -y fasd
     fi
 }
