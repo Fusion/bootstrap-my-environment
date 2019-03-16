@@ -87,6 +87,12 @@ if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
 fi
 source "$fasd_cache"
 unset fasd_cache
+# vim plugins
+[ -f $HOME/.vim/autoload/plug.vim ] || {
+    echo "# Installing vim-plugin";
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master#;
+}
+
 # various
 export DISPLAY=:0.0
 export PULSE_SERVER=tcp:localhost
