@@ -92,6 +92,7 @@ unset fasd_cache
     echo "# Installing vim-plugin";
     [ -d $HOME/.vim/autoload ] && { mkdir -p $HOME/.vim/autoload; }
     curl -sfLo $HOME/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim;
+    echo "  run :PlugInstall in .vim if you get the .vimrc file"
 }
 # various
 export DISPLAY=:0.0
