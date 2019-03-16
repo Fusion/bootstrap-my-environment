@@ -90,9 +90,9 @@ unset fasd_cache
 # vim plugins
 [ -f $HOME/.vim/autoload/plug.vim ] || {
     echo "# Installing vim-plugin";
-    curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim;
+    [ -d $HOME/.vim/autoload ] && { mkdir -p $HOME/.vim/autoload; }
+    curl -sfLo $HOME/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim;
 }
-
 # various
 export DISPLAY=:0.0
 export PULSE_SERVER=tcp:localhost
