@@ -87,6 +87,23 @@ if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
 fi
 source "$fasd_cache"
 unset fasd_cache
+# bat
+[ "$(which bat)" == "" ] && {
+    echo "# Installing bat";
+    if [ $PKGER == "brew" ]; then
+        brew install bat
+    elif [ $PKGER == "apt" ]; then
+        bat_version=0.10.0
+        cd /tmp && \
+            curl -LO https://github.com/sharkdp/bat/releases/download/v${bat_version}/bat_${bat_version}_amd64.deb && \
+            sudo dpkg -i bat_${bat_version}_amd64.deb
+        unset bat_version
+    elif [ $PKGER == "apk" ]; then
+        sudo apk add -y bat
+    elif [ $PKGER == "yum" ]; then
+        sudo yum install -y bat
+    fi
+}
 # vim plugins
 [ -f $HOME/.vim/autoload/plug.vim ] || {
     echo "# Installing vim-plugin";
