@@ -95,7 +95,7 @@ unset fasd_cache
     elif [ $PKGER == "apt" ]; then
         bat_version=0.10.0
         cd /tmp && \
-            curl -LO https://github.com/sharkdp/bat/releases/download/v${bat_version}/bat_${bat_version}_amd64.deb && \
+            curl -sfLO https://github.com/sharkdp/bat/releases/download/v${bat_version}/bat_${bat_version}_amd64.deb && \
             sudo dpkg -i bat_${bat_version}_amd64.deb
         unset bat_version
     elif [ $PKGER == "apk" ]; then
@@ -124,5 +124,7 @@ export A='--all-namespaces'
 [ -f $HOME/.opam/opam-init/init.sh ] && {
     . $HOME/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true;
 }
+# local
+[ -f $HOME/.local/bashrc ] && { echo "Sourcing local settings"; . $HOME/.local/bashrc; }
 #
 [ -f ~/welcome ] && { . ~/welcome; }
