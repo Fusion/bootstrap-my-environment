@@ -304,6 +304,12 @@ function! LoadVimPluginScript ()
         "Plug 'hkupty/nvimux'
         "
         call plug#end()
+        "
+        try
+            colorscheme falcon
+        catch
+        endtry
+
     catch
         " sigh
     endtry
@@ -342,10 +348,6 @@ set rtp+=~/.fzf
 " -- color personal conf
 set termguicolors
 set background=dark
-try
-    colorscheme falcon
-catch
-endtry
 
 " -- limelight visibility
 let g:limelight_conceal_ctermfg = 'gray'
