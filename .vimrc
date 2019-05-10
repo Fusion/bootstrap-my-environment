@@ -25,6 +25,28 @@
 "
 " IDE mode: using file explorer + tagbar + b <TAB> (wildmode) + :F + ctags
 "
+" CHEAT SHEET:
+" comment out code: `gcc` or `<selection>gc`
+" add a gfx-type comment: `:r !toilet -f pagga " My comment "`
+" editing a remote file: `{vi|:e} scp://host//path/[file.txt]` or use sshfs
+"
+" SHORTCUTS:
+" ┌─────────────────┬────────────────────────┬────────────┐
+" │     Action      │        Shortcut        │ Doom Emacs │
+" ├─────────────────┼────────────────────────┼────────────┤
+" │ load buffer     │ :e {file}|<tab>        │ SPC .      │
+" │ list buffers    │ :ls                    │ SPC ,      │
+" │ delete buffer   │ :bd or :bd!            │            │
+" │ wipe buffer     │ :bw                    │            │
+" │ edit in new tab │ :tabe {file}|<tab>     │            │
+" │ split window    │ <ctrl>w s or <ctrl>w v │            │
+" │ new window      │ :new or :vnew          │            │
+" │                 │ :sp or :vs             │            │
+" │ navigate        │ <ctrl>w h/j/k/l        │            │
+" │                 │ :bn/:bo                │            │
+" │                 │ :b {name}|{number}     │            │
+" └─────────────────┴────────────────────────┴────────────┘
+
 set nocompatible               " be iMproved
 filetype off                   " required!
 set laststatus=2
@@ -259,6 +281,8 @@ function! LoadVimPluginScript ()
         Plug 'tpope/vim-surround'
         " [ and ] cmds such as ]b switch buffers
         Plug 'tpope/vim-unimpaired'
+        " Auto comments
+        Plug 'tpope/vim-commentary'
         " Align code, json, etc.
         " vip<Enter>= or gaip= (align around '=')
         Plug 'junegunn/vim-easy-align'
@@ -304,12 +328,6 @@ function! LoadVimPluginScript ()
         "Plug 'hkupty/nvimux'
         "
         call plug#end()
-        "
-        try
-            colorscheme falcon
-        catch
-        endtry
-
     catch
         " sigh
     endtry
@@ -348,6 +366,10 @@ set rtp+=~/.fzf
 " -- color personal conf
 set termguicolors
 set background=dark
+try
+    colorscheme falcon
+catch
+endtry
 
 " -- limelight visibility
 let g:limelight_conceal_ctermfg = 'gray'
