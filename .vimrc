@@ -28,7 +28,17 @@
 " CHEAT SHEET:
 " comment out code: `gcc` or `<selection>gc`
 " add a gfx-type comment: `:r !toilet -f pagga " My comment "`
-" editing a remote file: `{vi|:e} scp://host//path/[file.txt]` or use sshfs
+"
+" REMOTE FILES:
+" editing a remote file: `{vi|:e} scp://host//path/[file.txt]` or use sshfs --
+" on WSL, https://www.nsoftware.com/download/getfile.aspx?file=free/NDXC-A/setup.exe&name=SFTP+Net+Drive+Full+Version
+" then run and map locally using: `sudo mount -t drvfs Z: ~/tmpwork`
+"
+" To ssh to a container, the lightweight way, run on host:
+" ```
+" export C={container name} && curl https://gist.githubusercontent.com/Fusion/a81a6b5c90e40846e2f9f5ab03d41bc0/raw/sshon | bash
+" ```
+" Note: need to setup a password for docker user!
 "
 " SHORTCUTS:
 " ┌─────────────────┬────────────────────────┬────────────┐
