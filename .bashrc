@@ -104,6 +104,19 @@ unset fasd_cache
         sudo yum install -y bat
     fi
 }
+# clipboard from shell
+alias pbcopy='xclip -selection clipboard'
+alias pbpaste='xclip -selection clipboard -o'
+[ "$(which xclip)" == "" ] && {
+    echo "# Installing xclip";
+    if [ $PKGER == "apt" ]; then
+        sudo apt-get install -y xclip
+    elif [ $PKGER == "apk" ]; then
+        sudo apk add -y xclip
+    elif [ $PKGER == "yum" ]; then
+        sudo yum install -y xclip
+    fi
+}
 # vim plugins
 [ -f $HOME/.vim/autoload/plug.vim ] || {
     echo "# Installing vim-plugin";
@@ -123,6 +136,10 @@ export A='--all-namespaces'
 # ocaml
 [ -f $HOME/.opam/opam-init/init.sh ] && {
     . $HOME/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true;
+}
+# wal, if present
+[ -f $HOME/.cache/wal/sequences ] && {
+    cat ~/.cache/wal/sequences && clear;
 }
 # local
 [ -f $HOME/.local/bashrc ] && { echo "Sourcing local settings"; . $HOME/.local/bashrc; }
