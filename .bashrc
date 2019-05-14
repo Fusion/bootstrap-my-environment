@@ -141,6 +141,11 @@ export A='--all-namespaces'
 [ -f $HOME/.cache/wal/sequences ] && {
     cat ~/.cache/wal/sequences && clear;
 }
+# vte
+[ -f /etc/profile.d/vte.sh ] && {
+    . /etc/profile.d/vte.sh;
+    __vte_prompt_command;
+}
 # local
 [ -f $HOME/.local/bashrc ] && { echo "Sourcing local settings"; . $HOME/.local/bashrc; }
 #
