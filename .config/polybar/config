@@ -1,0 +1,283 @@
+[colors]
+background = #8845415c
+background-alt = #cc000000
+foreground = #dfdfdf
+foreground-alt = #555
+primary = #268bd2
+; nice orange: #ffb52a
+secondary = #e60053
+alert = #bd2c40
+;
+bgblue = #010024
+white = #f8f8f8
+pink = #F92672
+dpink = #a01849
+cyan = #23ceef
+dcyan = #157b8f
+purple = #8e4fff
+dpurple = #5a32a2
+orange = #f4a63a
+dorange = #aa7428
+green = #A6E22E
+dgreen = #77A915
+black = #000000
+
+[bar/i3bar]
+width = 100%
+height = 27
+radius = 0.0
+fixed-center = true
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 3
+line-color = #268bd2
+
+border-size = 0
+border-top-size = ${bar/i3bar.line-size}
+border-color = ${colors.background}
+border-bottom-size = 2
+border-bottom-color = #37304d
+
+padding-left = 1
+padding-right = 2
+
+module-margin-left = 1
+module-margin-right = 1
+
+font-0 = NotoSans-Regular:size=12;0
+font-1 = MaterialIcons:size=10;2
+font-2 = Termsynu:size=12;0
+font-3 = Siji:pixelsize=12;1
+font-4 = FontAwesome:size=12;0
+font-5 = Noto Color Emoji:scale=10
+font-6 = Unifont:size=6;0
+
+modules-left = i3
+modules-center = xwindow
+modules-right = filesystem cpu memory battery wireless-network wired-network alsa weather clock 
+
+; tray probably looks terrible but I don't have any apps on my tray to see it
+tray-position = left
+tray-padding = 2
+tray-scale = 1.0
+tray-background = #000
+
+[module/xwindow]
+type = internal/xwindow
+label = %title%
+
+[module/filesystem]
+type = internal/fs
+interval = 25
+
+mount-0 = /
+
+label-mounted = "    %{F#0a81f5}%mountpoint%%{F-}: %free%   "
+label-unmounted = %mountpoint% not mounted
+label-unmounted-foreground = ${colors.foreground-alt}
+label-mounted-underline = #aa3300
+label-mounted-background = #772200
+
+[module/clock]
+type = internal/date
+date = %I:%M
+date-alt = %Y-%m-%d %I:%M
+
+;format =  <label>
+format-padding = 2
+format-foreground = #ffcddc
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+
+; Only show workspaces on the same output as the bar
+;pin-workspaces = true
+
+label-mode-padding = 2
+label-mode-foreground = #000
+label-mode-background = ${colors.primary}
+
+; focused = Active workspace on focused monitor
+label-focused = %index%
+label-focused-background = ${colors.background-alt}
+label-focused-underline = ${colors.primary}
+label-focused-padding = 2
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %index%
+label-unfocused-padding = 2
+
+; visible = Active workspace on unfocused monitor
+label-visible = %index%
+label-visible-background = ${colors.alert}
+label-visible-underline = ${self.label-focused-underline}
+label-visible-padding = ${self.label-focused-padding}
+
+; urgent = Workspace with urgency hint set
+label-urgent = %index%
+label-urgent-background = ${colors.background-alt}
+label-urgent-padding = 2
+
+[module/menu-apps]
+type = custom/menu
+
+; If true, <label-toggle> will be to the left of the menu items (default).
+; If false, it will be on the right of all the items.
+expand-right = true
+label-open = Apps
+label-close = x
+label-separator = |
+
+; "menu-LEVEL-N" has the same properties as "label-NAME" with
+; the additional "exec" property
+;
+; Available exec commands:
+;   menu-open-LEVEL
+;   menu-close
+; Other commands will be executed using "/usr/bin/env sh -c $COMMAND"
+
+menu-0-0 = Browsers
+menu-0-0-exec = menu-open-1
+menu-0-1 = Multimedia
+menu-0-1-exec = menu-open-2
+
+menu-1-0 = Firefox
+menu-1-0-exec = firefox &
+menu-1-1 = Chromium
+menu-1-1-exec = chromium &
+
+menu-2-0 = Gimp
+menu-2-0-exec = gimp &
+menu-2-1 = Scrot
+menu-2-1-exec = scrot &
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+
+format = "   <label> <ramp-coreload>   "
+format-foreground = ${colors.foreground}
+format-padding = 2
+format-underline = #0099aa
+format-background = #006677
+
+label =  cpu
+
+ramp-coreload-0 = ▁
+ramp-coreload-0-font = 0
+ramp-coreload-0-foreground = ${colors.foreground}
+ramp-coreload-1 = ▂
+ramp-coreload-1-font = 1
+ramp-coreload-1-foreground = ${colors.foreground}
+ramp-coreload-2 = ▃
+ramp-coreload-2-font = 1
+ramp-coreload-2-foreground = ${colors.foreground}
+ramp-coreload-3 = 
+ramp-coreload-3-font = 1
+ramp-coreload-3-foreground = ${colors.foreground}
+ramp-coreload-4 = ▅
+ramp-coreload-4-font = 1
+ramp-coreload-4-foreground = #ffffff
+ramp-coreload-5 = ▆
+ramp-coreload-5-font = 1
+ramp-coreload-5-foreground = #ffffff
+ramp-coreload-6 = ▇
+ramp-coreload-6-font = 1
+ramp-coreload-6-foreground = #ff3b51
+ramp-coreload-7 = 
+ramp-coreload-7-font = 1
+ramp-coreload-7-foreground = #ff3b51
+
+[module/memory]
+type = internal/memory
+interval = 2
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = #00aa00
+format-background = #007700
+;#4bffdc
+label = "    %gb_used%   "
+
+[module/alsa]
+type = internal/alsa
+master-soundcard = hw:1
+speaker-soundcard = hw:1
+headphone-soundcard = hw:1
+master-mixer = Master
+speaker-mixer = Speaker
+headphone-mixer = Headphone
+headphone-id = 9
+mapped = true
+interval = 5
+format-volume = <ramp-volume> <label-volume>
+label-muted = 🔇 muted
+label-muted-foreground = #66
+ramp-volume-0 = 🔈
+ramp-volume-1 = 🔉
+ramp-volume-2 = 🔊
+
+[module/battery]
+type = internal/battery
+full-at = 98
+format-charging = "   <label-charging>   "
+format-discharging = "   <label-discharging>   "
+;format-full = %{T3}Battery <label-full>
+label-full =
+;label-full-font = 3
+;
+[module/wireless-network]
+type = internal/network
+interface = wlp2s0
+interval = 2.0
+ping-interval = 10
+
+format-connected = "   <ramp-signal> <label-connected>   "
+label-connected = %essid%
+label-disconnected = 
+label-disconnected-foreground = #66
+
+ramp-signal-0 = "▂"
+ramp-signal-1 = "▂▃"
+ramp-signal-2 = "▂▃▅"
+ramp-signal-3 = "▂�
+ramp-signal-4 = "▂▃▅▆"
+
+animation-packetloss-0-foreground = #ffa64c
+animation-packetloss-1 = 脪
+animation-packetloss-1-foreground = ${bar/top.foreground}
+animation-packetloss-framerate = 500
+
+[module/wired-network]
+type = internal/network
+interface = eno1
+interval = 2.0
+
+label-connected = "   Wired   "
+label-disconnected =  
+label-disconnected-foreground = #66
+
+[module/weather]
+type = custom/script
+exec = $HOME/.scripts/weather.py
+interval = 600
+label = "    %output%   "
+format-padding = 1
+format-underline = #aaaa00
+format-background = #777700
+
+[settings]
+screenchange-reload = true
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = xor
+;compositing-border = over
+
+[global/wm]
+margin-top = 5
+margin-bottom = 5
+
+; vim:ft=dosini
