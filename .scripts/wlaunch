@@ -1,0 +1,2 @@
+export DISPLAY=unix:0
+i3

@@ -1,0 +1,2 @@
+#pattern  filter=crypt diff=crypt
+.scripts/weather.json filter=crypt diff=crypt
