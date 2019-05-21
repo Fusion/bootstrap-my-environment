@@ -147,7 +147,7 @@ export A='--all-namespaces'
     __vte_prompt_command;
 }
 # local
-export PATH=$PATH:$HOME/.local/bin
+export PATH=$PATH:$HOME/.local/bin:/home/linuxbrew/.linuxbrew/bin
 [ -f $HOME/.local/bashrc ] && { echo "Sourcing local settings"; . $HOME/.local/bashrc; }
 #
 [ -f ~/welcome ] && { . ~/welcome; }
