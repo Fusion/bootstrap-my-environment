@@ -125,7 +125,7 @@ alias pbpaste='xclip -selection clipboard -o'
     echo "  run :PlugInstall in .vim if you get the .vimrc file"
 }
 # various
-export DISPLAY=:0.0
+export DISPLAY=unix:0
 export PULSE_SERVER=tcp:localhost
 alias k=kubectl
 export A='--all-namespaces'
@@ -147,6 +147,7 @@ export A='--all-namespaces'
     __vte_prompt_command;
 }
 # local
+export PATH=$PATH:$HOME/.local/bin
 [ -f $HOME/.local/bashrc ] && { echo "Sourcing local settings"; . $HOME/.local/bashrc; }
 #
 [ -f ~/welcome ] && { . ~/welcome; }
