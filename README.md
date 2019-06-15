@@ -1,3 +1,7 @@
 # TODO
 
-Secrets preserved using `transcrypt`
+More testing
+
+# Good to know
+
+Secrets encrypted using `transcrypt`
