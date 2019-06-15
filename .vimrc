@@ -7,6 +7,7 @@
 " Lua is required for neocomplete ( OS X: brew install --with-python3 " --with-lua )
 " vim-plug is required ( Linux: curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim )
 " Run :PlugInstall
+" Uncomment plugins based on specific needs
 "
 " GOOD TO KNOW:
 " indent using 2 spaces
@@ -251,119 +252,110 @@ augroup END
 " Switch visual buffers
 map <Tab> <C-W>w
 
-function! LoadVimPluginScript ()
-    try
-        call plug#begin('~/.vim/plugged')
-        " Disabled for now as :b <TAB> fills same function
-        " Plug 'fholgado/minibufexpl.vim'
-        " Plug 'altercation/vim-colors-solarized'
-        Plug 'bronson/vim-trailing-whitespace'
-        Plug 'Shougo/vimproc.vim'
-        Plug 'Shougo/neocomplete.vim'
-        " A shell entirely in vim
-        " :VimShell
-        Plug 'Shougo/vimshell.vim'
-        " Display git change status in gutter
-        Plug 'airblade/vim-gitgutter'
-        " Git integration
-        " not working at this point
-        Plug 'tpope/vim-fugitive'
-        " Better parentheses
-        " ADD COMMAND :RainbowToggle
-        Plug 'luochen1990/rainbow'
-        " Fancy status bar
-        Plug 'itchyny/lightline.vim'
-        " Vim and Tmux
-        " Alt+arrow keys etc
-        Plug 'christoomey/vim-tmux-navigator'
-        " BD to close file but keep buffer open
-        Plug 'qpkorr/vim-bufkill'
-        " Fuzzy search/open
-        " UPDATE COMMAND: :Files
-        "" FZF FZF ~ FZF --no-sort -m /tmp FZF! <Ctrl>-t <Ctrl>-x <Ctrl>-v
-        Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
-        Plug 'junegunn/fzf.vim'
-        " Gray out what is not currently being edited
-        " ADD COMMAND :LimeLight
-        " ADD COMMAND :LimeLight!
-        Plug 'junegunn/limelight.vim'
-        " Distraction free mode
-        " ADD COMMAND :Goyo and Goyo!
-        Plug 'junegunn/goyo.vim'
-        " Surround with characters
-        " replace surrounding " with ': cs"'
-        " delete surround ": ds"
-        " surround word with []: ysiw]
-        Plug 'tpope/vim-surround'
-        " [ and ] cmds such as ]b switch buffers
-        Plug 'tpope/vim-unimpaired'
-        " Auto comments
-        Plug 'tpope/vim-commentary'
-        " Align code, json, etc.
-        " vip<Enter>= or gaip= (align around '=')
-        Plug 'junegunn/vim-easy-align'
-        " Markup preview
-        " :Xmark> :Xmark< :Xmark+ :Xmark- :Xmark!
-        Plug 'junegunn/vim-xmark'
-        " Tags
-        Plug 'xolox/vim-misc'
-        " ADD COMMAND :UpdateTags
-        Plug 'xolox/vim-easytags'
-        Plug 'majutsushi/tagbar'
-        " SCSS
-        ""Plug 'cakebaker/scss-syntax.vim'
-        " Go Lang
-        ""Plug 'fatih/vim-go'
-        " Elixir
-        ""Plug 'elixir-editors/vim-elixir'
-        ""Plug 'slashmili/alchemist.vim'
-        " Nim
-        ""Plug 'baabelfish/nvim-nim'
-        " ReasonML
-        ""Plug 'roxma/vim-hug-neovim-rpc'
-        ""Plug 'roxma/nvim-yarp'
-        ""Plug 'reasonml-editor/vim-reason-plus'
-        Plug 'jordwalke/vim-reasonml'
-        "  Complete everything!
-        Plug 'zxqfl/tabnine-vim'
-        " Databases Management
-        Plug 'tpope/vim-db'
-        Plug 'autozimu/LanguageClient-neovim', {
-        \ 'branch': 'next',
-        \ 'do': 'bash install.sh',
-        \ }
-        " Open in browser
-        Plug 'tyru/open-browser.vim'
-        Plug 'kannokanno/previm'
-        " Color Schemes, if any
-        Plug 'fenetikm/falcon'
-        Plug 'prognostic/plasticine'
-        Plug 'cormacrelf/vim-colors-github'
-        " ++ Related to org-mode ++
-        " :Calendar/:CalendarH/:CalendarT [year month]
-        Plug 'mattn/calendar-vim'
-        " Narrow Region -> select, :NR
-        Plug 'chrisbra/NrrwRgn'
-        " Speeddating -> date <C-a> / <C-x>
-        Plug 'tpope/vim-speeddating'
-        " Links
-        Plug 'vim-scripts/utl.vim'
-        " org-mode itself
-        Plug 'jceb/vim-orgmode'
+try
+    call plug#begin('~/.vim/plugged')
+    " Disabled for now as :b <TAB> fills same function
+    " Plug 'fholgado/minibufexpl.vim'
+    " Plug 'altercation/vim-colors-solarized'
+    Plug 'bronson/vim-trailing-whitespace'
+    " May require a local recompile...
+    Plug 'Shougo/vimproc.vim'
+    " A shell entirely in vim
+    " :VimShell
+    Plug 'Shougo/vimshell.vim'
+    " Display git change status in gutter
+    Plug 'airblade/vim-gitgutter'
+    " Git integration
+    " as usual needs ':e' first to work...
+    Plug 'tpope/vim-fugitive'
+    " Better parentheses
+    " ADD COMMAND :RainbowToggle
+    Plug 'luochen1990/rainbow'
+    " Fancy status bar
+    Plug 'itchyny/lightline.vim'
+    " Vim and Tmux
+    " Alt+arrow keys etc
+    ""Plug 'christoomey/vim-tmux-navigator'
+    " BD to close file but keep buffer open
+    Plug 'qpkorr/vim-bufkill'
+    " Fuzzy search/open
+    " UPDATE COMMAND: :Files
+    "" FZF FZF ~ FZF --no-sort -m /tmp FZF! <Ctrl>-t <Ctrl>-x <Ctrl>-v
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+    Plug 'junegunn/fzf.vim'
+    " Gray out what is not currently being edited
+    " ADD COMMAND :LimeLight
+    " ADD COMMAND :LimeLight!
+    Plug 'junegunn/limelight.vim'
+    " Distraction free mode
+    " ADD COMMAND :Goyo and Goyo!
+    Plug 'junegunn/goyo.vim'
+    " Surround with characters
+    " replace surrounding " with ': cs"'
+    " delete surround ": ds"
+    " surround word with []: ysiw]
+    Plug 'tpope/vim-surround'
+    " [ and ] cmds such as ]b switch buffers
+    Plug 'tpope/vim-unimpaired'
+    " Auto comments
+    Plug 'tpope/vim-commentary'
+    " Align code, json, etc.
+    " vip<Enter>= or gaip= (align around '=')
+    Plug 'junegunn/vim-easy-align'
+    " Markup preview
+    " :Xmark> :Xmark< :Xmark+ :Xmark- :Xmark!
+    Plug 'junegunn/vim-xmark'
+    " Tags
+    Plug 'xolox/vim-misc'
+    " ADD COMMAND :UpdateTags
+    Plug 'xolox/vim-easytags'
+    Plug 'majutsushi/tagbar'
+    " SCSS
+    ""Plug 'cakebaker/scss-syntax.vim'
+    " Go Lang
+    ""Plug 'fatih/vim-go'
+    " Elixir
+    ""Plug 'elixir-editors/vim-elixir'
+    ""Plug 'slashmili/alchemist.vim'
+    " Nim
+    ""Plug 'baabelfish/nvim-nim'
+    " ReasonML
+    Plug 'jordwalke/vim-reasonml'
+    "  Complete everything!
+    Plug 'zxqfl/tabnine-vim'
+    " Databases Management
+    ""Plug 'tpope/vim-db'
+    ""Plug 'autozimu/LanguageClient-neovim', {
+    ""\ 'branch': 'next',
+    ""\ 'do': 'bash install.sh',
+    ""\ }
+    " Open in browser
+    Plug 'tyru/open-browser.vim'
+    Plug 'kannokanno/previm'
+    " Color Schemes, if any
+    Plug 'fenetikm/falcon'
+    ""Plug 'prognostic/plasticine'
+    ""Plug 'cormacrelf/vim-colors-github'
+    " ++ Related to org-mode ++
+    " :Calendar/:CalendarH/:CalendarT [year month]
+    Plug 'mattn/calendar-vim'
+    " Narrow Region -> select, :NR
+    Plug 'chrisbra/NrrwRgn'
+    " Speeddating -> date <C-a> / <C-x>
+    Plug 'tpope/vim-speeddating'
+    " Links
+    Plug 'vim-scripts/utl.vim'
+    " org-mode itself
+    Plug 'jceb/vim-orgmode'
 
-        " Neovim TMUX bindinds
-        ""Plug 'hkupty/nvimux'
-        "
-        call plug#end()
-    catch
-        " sigh
-    endtry
-endfunction
-
-augroup loadVimPlugins
-    autocmd!
-    autocmd VimEnter * call LoadVimPluginScript()
-augroup END
+    " Neovim TMUX bindinds
+    ""Plug 'hkupty/nvimux'
+    "
+    call plug#end()
+catch
+    " sigh
+    echom "There was an error loading plugin scripts."
+endtry
 
 augroup PrevimSettings
     autocmd!
@@ -373,6 +365,10 @@ augroup END
 " ---------------------------------------------------------------------------
 " Plugin interdependencies
 " ---------------------------------------------------------------------------
+"
+" quick help for limelight due to bgnd color/transparency
+let g:limelight_conceal_ctermfg = 100
+let g:limelight_conceal_guifg = '#83a598'
 "
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
@@ -389,17 +385,11 @@ set rtp+=~/.fzf
 " ---------------------------------------------------------------------------
 " Everything below depends on plugins
 " ---------------------------------------------------------------------------
-
-" -- color personal conf
-set termguicolors
-set background=dark
-try
-    colorscheme falcon
-catch
-endtry
+if has("termguicolors")
+    ""set termguicolors
+endif
 
 " -- limelight visibility
-let g:limelight_conceal_ctermfg = 'gray'
 let g:limelight_conceal_ctermfg = 240
 
 " -- easy align mapping
@@ -413,8 +403,8 @@ nmap ga <Plug>(EasyAlign)
 
 " -- 80th columns
 if (exists('+colorcolumn'))
-    set colorcolumn=80
-    highlight ColorColumn ctermbg=9
+    ""let &colorcolumn="80,".join(range(120,999),",")
+    ""highlight ColorColumn ctermbg=9
 endif
 
 " -- Auto completion
@@ -673,7 +663,12 @@ endfunction
 command! Idehelp call CfrIdeHelp()
 
 function! CfrIdeInit()
-    " Nothing here, for now.
+    set background=dark
+    try
+        colorscheme falcon
+    catch
+    endtry
+    hi! Normal ctermbg=NONE guibg=NONE
 endfunction
 
 augroup ProjectDrawer
