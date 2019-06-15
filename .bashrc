@@ -157,10 +157,10 @@ export DISPLAY=unix:0
 export PULSE_SERVER=tcp:localhost
 alias k=kubectl
 export A='--all-namespaces'
-
 # golang
 [ -d /usr/local/go/bin ] && {
-    export PATH=$PATH:/usr/local/go/bin;
+    export PATH=$PATH:/usr/local/go/bin:${HOME}/go/bin;
+    export GOPATH=${HOME}/go
 }
 # ocaml
 [ -f $HOME/.opam/opam-init/init.sh ] && {
