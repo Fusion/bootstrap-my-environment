@@ -49,16 +49,21 @@
 " │ delete buffer   │ :bd or :bd!            │            │
 " │ wipe buffer     │ :bw                    │            │
 " │ edit in new tab │ :tabe {file}|<tab>     │            │
-" │ split window    │ <ctrl>w s or <ctrl>w v │            │
+" │ split window    │ <ctrl-w>s or <ctrl-w>v │            │
 " │ new window      │ :new or :vnew          │            │
 " │                 │ :sp or :vs             │            │
-" │ navigate        │ <ctrl>w h/j/k/l        │            │
+" │ navigate        │ <ctrl->w h/j/k/l       │            │
 " │                 │ :bn/:bo                │            │
 " │                 │ :b {name}|{number}     │            │
+" │ autocomplete    │ <ctrl-n> / <ctrl-p>    │            │
+" │ ac: line/file   │ <ctrl-x><ctrl-l/f>     │            │
+" │ inc. nbrs mono  │ g<ctrl-a>              │            │
 " └─────────────────┴────────────────────────┴────────────┘
+" MISC:
+" `:verbose set ts? sta? sts? et?` -> shows where defined
 
 set nocompatible               " be iMproved
-filetype off                   " required!
+" vim-plug does not require! filetype off                   " required!
 set laststatus=2
 set encoding=utf-8
 set t_Co=256
@@ -101,8 +106,8 @@ set viminfo+=!
     set foldnestmax=15
     set foldmethod=manual
 " Saves manual folds
-    "au BufWinLeave ?* mkview 1
-    "au BufWinEnter ?* silent loadview 1
+    ""au BufWinLeave ?* mkview 1
+    ""au BufWinEnter ?* silent loadview 1
 
 " Search
     set showmatch " show matching character
@@ -172,10 +177,10 @@ augroup END
     " Ensure buffer is deleted when hidden
     autocmd FileType netrw setl bufhidden=delete
 " No, not by default!
-"augroup ProjectDrawer
-"    autocmd!
-"    autocmd VimEnter * :Vexplore
-"augroup END
+""augroup ProjectDrawer
+""    autocmd!
+""    autocmd VimEnter * :Vexplore
+""augroup END
 
 " ---------------------------------------------------------------------------
 " Keyboard, Leader key, etc.
@@ -186,6 +191,7 @@ augroup END
 " Leader Key
     let mapleader = ","
     let g:mapleader = ","
+    let maplocalleader = "\\"
 
     map <Leader>vp :VimuxPromptCommand<CR>
     map <Leader>vq :VimuxCloseRunner<CR>
@@ -274,7 +280,7 @@ function! LoadVimPluginScript ()
         Plug 'qpkorr/vim-bufkill'
         " Fuzzy search/open
         " UPDATE COMMAND: :Files
-        " FZF FZF ~ FZF --no-sort -m /tmp FZF! <Ctrl>-t <Ctrl>-x <Ctrl>-v
+        "" FZF FZF ~ FZF --no-sort -m /tmp FZF! <Ctrl>-t <Ctrl>-x <Ctrl>-v
         Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
         Plug 'junegunn/fzf.vim'
         " Gray out what is not currently being edited
@@ -305,18 +311,18 @@ function! LoadVimPluginScript ()
         Plug 'xolox/vim-easytags'
         Plug 'majutsushi/tagbar'
         " SCSS
-        "Plug 'cakebaker/scss-syntax.vim'
+        ""Plug 'cakebaker/scss-syntax.vim'
         " Go Lang
-        "Plug 'fatih/vim-go'
+        ""Plug 'fatih/vim-go'
         " Elixir
-        "Plug 'elixir-editors/vim-elixir'
-        "Plug 'slashmili/alchemist.vim'
+        ""Plug 'elixir-editors/vim-elixir'
+        ""Plug 'slashmili/alchemist.vim'
         " Nim
-        "Plug 'baabelfish/nvim-nim'
+        ""Plug 'baabelfish/nvim-nim'
         " ReasonML
-        "Plug 'roxma/vim-hug-neovim-rpc'
-        "Plug 'roxma/nvim-yarp'
-        "Plug 'reasonml-editor/vim-reason-plus'
+        ""Plug 'roxma/vim-hug-neovim-rpc'
+        ""Plug 'roxma/nvim-yarp'
+        ""Plug 'reasonml-editor/vim-reason-plus'
         Plug 'jordwalke/vim-reasonml'
         "  Complete everything!
         Plug 'zxqfl/tabnine-vim'
@@ -333,9 +339,20 @@ function! LoadVimPluginScript ()
         Plug 'fenetikm/falcon'
         Plug 'prognostic/plasticine'
         Plug 'cormacrelf/vim-colors-github'
+        " ++ Related to org-mode ++
+        " :Calendar/:CalendarH/:CalendarT [year month]
+        Plug 'mattn/calendar-vim'
+        " Narrow Region -> select, :NR
+        Plug 'chrisbra/NrrwRgn'
+        " Speeddating -> date <C-a> / <C-x>
+        Plug 'tpope/vim-speeddating'
+        " Links
+        Plug 'vim-scripts/utl.vim'
+        " org-mode itself
+        Plug 'jceb/vim-orgmode'
 
         " Neovim TMUX bindinds
-        "Plug 'hkupty/nvimux'
+        ""Plug 'hkupty/nvimux'
         "
         call plug#end()
     catch
@@ -430,8 +447,8 @@ vnoremap <silent> <Enter> :EasyAlign<cr>
 
 " -- TagBar
 " ADD COMMAND :TagbarToggle
-nmap <F2> :TagbarToggle<CR>
-let g:tagbar_vertical = 1
+nmap <F8> :TagbarToggle<CR>
+"let g:tagbar_vertical = 1
 
 " ---------------------------------------------------------------------------
 " Rainbow Parens
@@ -587,7 +604,7 @@ endif
         \ setlocal wrap
 
 " Lisp
-    "let g:slimv_swank_cmd = '!osascript -e "tell application \"Terminal\" to do script \"~/Applications/ccl/dx86cl64 --load ~/.vim/plugged/slimv/slime/start-swank.lisp\""'
+    ""let g:slimv_swank_cmd = '!osascript -e "tell application \"Terminal\" to do script \"~/Applications/ccl/dx86cl64 --load ~/.vim/plugged/slimv/slime/start-swank.lisp\""'
 
 " ReasonML
 ""autocmd BufReadPost *.re setlocal filetype=reason
@@ -601,9 +618,9 @@ endif
 ""    \ }
 ""let g:LanguageClient_autoStart = 1
 
-nnoremap <silent> gd :call LanguageClient_textDocument_definition()<cr>
-nnoremap <silent> gf :call LanguageClient_textDocument_formatting()<cr>
-nnoremap <silent> <cr> :call LanguageClient_textDocument_hover()<cr>
+""nnoremap <silent> gd :call LanguageClient_textDocument_definition()<cr>
+""nnoremap <silent> gf :call LanguageClient_textDocument_formatting()<cr>
+""nnoremap <silent> <cr> :call LanguageClient_textDocument_hover()<cr>
 
 " fzf-rg
 " ADD COMMAND: :F
@@ -617,6 +634,9 @@ command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>),
 set grepprg=rg\ --vimgrep
 " Use K to search for word under cursor
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+
+" Org-Mode
+let g:org_agenda_files=['~/org/index.org']
 
 " ---------------------------------------------------------------------------
 " CFR Specific

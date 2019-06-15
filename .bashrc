@@ -132,6 +132,7 @@ export A='--all-namespaces'
 # golang
 [ -d /usr/local/go/bin ] && {
     export PATH=$PATH:/usr/local/go/bin;
+    export GOPATH=${HOME}/go
 }
 # ocaml
 [ -f $HOME/.opam/opam-init/init.sh ] && {
