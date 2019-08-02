@@ -7,7 +7,7 @@
 " Lua is required for neocomplete ( OS X: brew install --with-python3 " --with-lua )
 " vim-plug is required ( Linux: curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim )
 " Run :PlugInstall
-" Uncomment plugins based on specific needs
+" To import heavy plugins, ensure that this is found in ~/.local/bashrc: `export RICH_VIM=true`
 "
 " GOOD TO KNOW:
 " indent using 2 spaces
@@ -255,8 +255,7 @@ map <Tab> <C-W>w
 try
     call plug#begin('~/.vim/plugged')
     " Disabled for now as :b <TAB> fills same function
-    " Plug 'fholgado/minibufexpl.vim'
-    " Plug 'altercation/vim-colors-solarized'
+    "" Plug 'fholgado/minibufexpl.vim'
     Plug 'bronson/vim-trailing-whitespace'
     " May require a local recompile...
     Plug 'Shougo/vimproc.vim'
@@ -266,7 +265,6 @@ try
     " Display git change status in gutter
     Plug 'airblade/vim-gitgutter'
     " Git integration
-    " as usual needs ':e' first to work...
     Plug 'tpope/vim-fugitive'
     " Better parentheses
     " ADD COMMAND :RainbowToggle
@@ -302,9 +300,6 @@ try
     " Align code, json, etc.
     " vip<Enter>= or gaip= (align around '=')
     Plug 'junegunn/vim-easy-align'
-    " Markup preview
-    " :Xmark> :Xmark< :Xmark+ :Xmark- :Xmark!
-    Plug 'junegunn/vim-xmark'
     " Tags
     Plug 'xolox/vim-misc'
     " ADD COMMAND :UpdateTags
@@ -320,20 +315,21 @@ try
     " Nim
     ""Plug 'baabelfish/nvim-nim'
     " ReasonML
-    Plug 'jordwalke/vim-reasonml'
-    "  Complete everything!
-    Plug 'zxqfl/tabnine-vim'
+    if $RICH_VIM == 'true'
+        Plug 'jordwalke/vim-reasonml'
+    endif
+    " Complete everything anytime
+    if $RICH_VIM == 'true'
+        Plug 'zxqfl/tabnine-vim'
+    endif
     " Databases Management
-    ""Plug 'tpope/vim-db'
-    ""Plug 'autozimu/LanguageClient-neovim', {
-    ""\ 'branch': 'next',
-    ""\ 'do': 'bash install.sh',
-    ""\ }
+    if $RICH_VIM == 'true'
+        Plug 'tpope/vim-db'
+    endif
     " Open in browser
     Plug 'tyru/open-browser.vim'
-    Plug 'kannokanno/previm'
     " Color Schemes, if any
-    Plug 'fenetikm/falcon'
+    ""Plug 'fenetikm/falcon'
     ""Plug 'prognostic/plasticine'
     ""Plug 'cormacrelf/vim-colors-github'
     " ++ Related to org-mode ++
@@ -386,6 +382,7 @@ set rtp+=~/.fzf
 " Everything below depends on plugins
 " ---------------------------------------------------------------------------
 if has("termguicolors")
+    " enabling this guy breaks transparency
     ""set termguicolors
 endif
 
@@ -404,7 +401,8 @@ nmap ga <Plug>(EasyAlign)
 " -- 80th columns
 if (exists('+colorcolumn'))
     ""let &colorcolumn="80,".join(range(120,999),",")
-    ""highlight ColorColumn ctermbg=9
+    set colorcolumn=120
+    highlight ColorColumn ctermbg=darkgrey
 endif
 
 " -- Auto completion
@@ -665,7 +663,7 @@ command! Idehelp call CfrIdeHelp()
 function! CfrIdeInit()
     set background=dark
     try
-        colorscheme falcon
+        ""colorscheme falcon
     catch
     endtry
     hi! Normal ctermbg=NONE guibg=NONE

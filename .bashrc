@@ -3,7 +3,12 @@ case $- in
     *i*) ;;
       *) return;;
 esac
-# OS Specific
+
+
+# ░█▀█░█▀▀░░░█▀▀░█▀█░█▀▀░█▀▀░▀█▀░█▀▀░▀█▀░█▀▀░░
+# ░█░█░▀▀█░░░▀▀█░█▀▀░█▀▀░█░░░░█░░█▀▀░░█░░█░░░░
+# ░▀▀▀░▀▀▀░░░▀▀▀░▀░░░▀▀▀░▀▀▀░▀▀▀░▀░░░▀▀▀░▀▀▀░░
+
 case "$(uname)" in
     Linux)
         export OS=Linux
@@ -25,12 +30,20 @@ case "$(uname)" in
     ;;
 esac
 [ "$PKGER" == "brew" ] && export BREW="1"
-# History Management
+
+# ░█░█░▀█▀░█▀▀░▀█▀░█▀█░█▀▄░█░█░░░█▄█░█▀█░█▀█░█▀█░█▀▀░█▀▀░█▄█░█▀▀░█▀█░▀█▀░░
+# ░█▀█░░█░░▀▀█░░█░░█░█░█▀▄░░█░░░░█░█░█▀█░█░█░█▀█░█░█░█▀▀░█░█░█▀▀░█░█░░█░░░
+# ░▀░▀░▀▀▀░▀▀▀░░▀░░▀▀▀░▀░▀░░▀░░░░▀░▀░▀░▀░▀░▀░▀░▀░▀▀▀░▀▀▀░▀░▀░▀▀▀░▀░▀░░▀░░░
+
 export HISTCONTROL=ignoreboth
 export HISTSIZE=1000
 export HISTFILESIZE=2000
 shopt -s histappend
-# Display
+
+# ░█▀▄░▀█▀░█▀▀░█▀█░█░░░█▀█░█░█░░
+# ░█░█░░█░░▀▀█░█▀▀░█░░░█▀█░░█░░░
+# ░▀▀░░▀▀▀░▀▀▀░▀░░░▀▀▀░▀░▀░░▀░░░
+
 shopt -s checkwinsize
 case "$TERM" in
   xterm-color|*-256color) color_prompt=yes;;
@@ -54,6 +67,12 @@ alias l="ls -CF"
 [ "$(whoami)" == "root" ] && { alias sudo=; }
 #
 [ "$OS" == "OSX" ] && { export PATH="~/bin/osx:${PATH}"; } || { export PATH="~/bin/linux:${PATH}"; }
+
+
+# ░▀█▀░█▀█░█▀▀░▀█▀░█▀█░█░░░█░░░█▀▀░█▀▄░█▀▀░░
+# ░░█░░█░█░▀▀█░░█░░█▀█░█░░░█░░░█▀▀░█▀▄░▀▀█░░
+# ░▀▀▀░▀░▀░▀▀▀░░▀░░▀░▀░▀▀▀░▀▀▀░▀▀▀░▀░▀░▀▀▀░░
+
 # direnv
 [ "$(which direnv)" == "" ] && {
     echo "# Installing direnv";
@@ -117,21 +136,30 @@ alias pbpaste='xclip -selection clipboard -o'
         sudo yum install -y xclip
     fi
 }
-# vim plugins
+
+
+# ░█░█░▀█▀░█▄█░░░█▀█░█░░░█░█░█▀▀░▀█▀░█▀█░█▀▀░░
+# ░▀▄▀░░█░░█░█░░░█▀▀░█░░░█░█░█░█░░█░░█░█░▀▀█░░
+# ░░▀░░▀▀▀░▀░▀░░░▀░░░▀▀▀░▀▀▀░▀▀▀░▀▀▀░▀░▀░▀▀▀░░
+
 [ -f $HOME/.vim/autoload/plug.vim ] || {
     echo "# Installing vim-plugin";
     [ -d $HOME/.vim/autoload ] && { mkdir -p $HOME/.vim/autoload; }
     curl -sfLo $HOME/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim;
     echo "  run :PlugInstall in .vim if you get the .vimrc file"
 }
-# various
+
+# ░█░█░█▀█░█▀▄░▀█▀░█▀█░█░█░█▀▀░░
+# ░▀▄▀░█▀█░█▀▄░░█░░█░█░█░█░▀▀█░░
+# ░░▀░░▀░▀░▀░▀░▀▀▀░▀▀▀░▀▀▀░▀▀▀░░
+
 export DISPLAY=unix:0
 export PULSE_SERVER=tcp:localhost
 alias k=kubectl
 export A='--all-namespaces'
 # golang
 [ -d /usr/local/go/bin ] && {
-    export PATH=$PATH:/usr/local/go/bin;
+    export PATH=$PATH:/usr/local/go/bin:${HOME}/go/bin;
     export GOPATH=${HOME}/go
 }
 # ocaml
@@ -147,7 +175,11 @@ export A='--all-namespaces'
     . /etc/profile.d/vte.sh;
     __vte_prompt_command;
 }
-# local
+
+# ░█░░░█▀█░█▀▀░█▀█░█░░░░
+# ░█░░░█░█░█░░░█▀█░█░░░░
+# ░▀▀▀░▀▀▀░▀▀▀░▀░▀░▀▀▀░░
+
 export PATH=$PATH:$HOME/.local/bin:/home/linuxbrew/.linuxbrew/bin
 [ -f $HOME/.local/bashrc ] && { echo "Sourcing local settings"; . $HOME/.local/bashrc; }
 #

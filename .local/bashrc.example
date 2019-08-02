@@ -1,0 +1,18 @@
+# This file is named $HOME/.local/bashrc
+# This is a home environment example file. Its content will vary!
+
+# K8S defaults
+export KUBECONFIG=$HOME/.kube/config
+
+# Androiddev
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+# vim should activate heavy plugins
+export RICH_VIM=true
+
+# Rust, of course
+source ~/.cargo/env
