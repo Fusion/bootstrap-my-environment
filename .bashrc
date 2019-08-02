@@ -172,8 +172,10 @@ export A='--all-namespaces'
 }
 # vte
 [ -f /etc/profile.d/vte.sh ] && {
-    . /etc/profile.d/vte.sh;
-    __vte_prompt_command;
+    [ "${VTE_VERSION:-0}" -ge 3405 ] && {
+      . /etc/profile.d/vte.sh;
+      __vte_prompt_command;
+}
 }
 
 # ░█░░░█▀█░█▀▀░█▀█░█░░░░
