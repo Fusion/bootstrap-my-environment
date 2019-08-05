@@ -3,6 +3,8 @@
 " Global Configuration
 " ---------------------------------------------------------------------------
 "
+" Help {{{
+
 " SETUP:
 " Lua is required for neocomplete ( OS X: brew install --with-python3 " --with-lua )
 " vim-plug is required ( Linux: curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim )
@@ -62,7 +64,9 @@
 " └─────────────────┴────────────────────────┴────────────┘
 " MISC:
 " `:verbose set ts? sta? sts? et?` -> shows where defined
+" }}}
 
+" General settings {{{
 set nocompatible               " be iMproved
 " vim-plug does not require! filetype off                   " required!
 set laststatus=2
@@ -76,14 +80,16 @@ syntax on
 
 " Full g:UPPERCASE variables will be persisted
 set viminfo+=!
+" }}}
 
-" Visible cursor
+" Visible cursor {{{
     let &t_ti.="\e[1 q"
     let &t_SI.="\e[5 q"
     let &t_EI.="\e[1 q"
     let &t_te.="\e[0 q"
+" }}}
 
-" Indents
+" Indents {{{
     set tabstop=4 " Set the default tabstop
     set softtabstop=4
     set shiftwidth=4 " Set the default shift width for indents
@@ -95,36 +101,41 @@ set viminfo+=!
     set pastetoggle=<F2> " toggle indents when pasting in vim! " Alternatively: <C-r>+
     set list " show invisible characters enumerated below
     set listchars=tab:>.,trail:.,extends:#,nbsp:.
+" }}}
 
-" Wrapping
+" Wrapping {{{
     set nowrap " do not wrap lines
     set sidescroll=15 " ?
     set backspace=indent,eol,start " backspace over everything
     set linebreak " Do not wrap words. Caution! May be confusing!
+" }}}
 
-" Folding
+" Folding {{{
     set foldlevel=0
     set foldnestmax=15
-    set foldmethod=manual
+    set foldmethod=marker " Sometimes it can be manual instead...or override using modelines
 " Saves manual folds
     ""au BufWinLeave ?* mkview 1
     ""au BufWinEnter ?* silent loadview 1
+" }}}
 
-" Search
+" Search {{{
     set showmatch " show matching character
     set ignorecase " for searching
     set smartcase " but only if lower case entered
     set hlsearch " show what is being searched
     set incsearch " real time incremental search
+" }}}
 
-" Various sizing settings
+" Various sizing settings {{{
     set hidden " hide buffers instead of closing them...keep undo, changes etc
     set history=1000
     set undolevels=1000 " a proper stack
     set nobackup " do not create bak files
     set noswapfile " no more ridiculous recovery
+" }}}
 
-" Moving around
+" Moving around {{{
     set virtualedit=block " move past end of line
     " Tell cursor to not move when joining lines (using z mark)
     nnoremap J mzJ`z
@@ -151,13 +162,18 @@ set viminfo+=!
 
     set splitbelow
     set splitright
+" }}}
 
-" Files
+" Files {{{
+    " tab completion menu / ':find *something<tab>'
     set wildmenu
+    set wildignore+=*/node_modules/*,_site,*/__pycache__/,*/venv/*,*/target/*,*/.vim$,\~$,*/.log,*/.aux,*/.cls,*/.aux,*/.bbl,*/.blg,*/.fls,*/.fdb*/,*/.toc,*/.out,*/.glo,*/.log,*/.ist
     set wildmode=longest:full,full
     " try file dir, current dir, subdirs
     set path=.,,**
+" }}}
 
+" Buffers, Drawers, NetRW {{{
 augroup vimrcEx
     autocmd!
     " When editing a file, always jump to the last known cursor position.
@@ -170,6 +186,7 @@ augroup vimrcEx
 augroup END
 
 " :Explore
+    " Note: '%' to create a new file while in netrw
     let g:netrw_banner = 0
     let g:netrw_liststyle = 3
     let g:netrw_browse_split = 4
@@ -182,11 +199,10 @@ augroup END
 ""    autocmd!
 ""    autocmd VimEnter * :Vexplore
 ""augroup END
+" }}}
 
-" ---------------------------------------------------------------------------
-" Keyboard, Leader key, etc.
-" ---------------------------------------------------------------------------
-"
+" Keyboard, Leader key, etc. {{{
+
     set shortmess=atI
 
 " Leader Key
@@ -250,8 +266,10 @@ augroup END
     vnoremap <Space> zf
 
 " Switch visual buffers
-map <Tab> <C-W>w
+    map <Tab> <C-W>w
+" }}}
 
+" Plugins {{{
 try
     call plug#begin('~/.vim/plugged')
     " Disabled for now as :b <TAB> fills same function
@@ -358,9 +376,7 @@ augroup PrevimSettings
     autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
 augroup END
 
-" ---------------------------------------------------------------------------
 " Plugin interdependencies
-" ---------------------------------------------------------------------------
 "
 " quick help for limelight due to bgnd color/transparency
 let g:limelight_conceal_ctermfg = 100
@@ -370,7 +386,9 @@ autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
 
 filetype plugin indent on     " required!
+" }}}
 
+" PlugIns Configuration Section {{{
 " ---------------------------------------------------------------------------
 " Everything below depends on external binaries
 " ---------------------------------------------------------------------------
@@ -378,9 +396,7 @@ filetype plugin indent on     " required!
 " Add fzf to vim's plugin search
 set rtp+=~/.fzf
 
-" ---------------------------------------------------------------------------
-" Everything below depends on plugins
-" ---------------------------------------------------------------------------
+"
 if has("termguicolors")
     " enabling this guy breaks transparency
     ""set termguicolors
@@ -444,9 +460,9 @@ nmap <F8> :TagbarToggle<CR>
 "
 let g:rainbow_active = 1
 
-" ---------------------------------------------------------------------------
-" Lightline
-" ---------------------------------------------------------------------------
+" }}}
+
+" Lightline {{{
 "
 let g:lightline = {
     \ 'colorscheme': 'landscape',
@@ -462,10 +478,9 @@ let g:lightline = {
     \   'charvaluehex': '0x%B'
     \ },
     \ }
+" }}}
 
-" ---------------------------------------------------------------------------
-" TMUX Integration
-" ---------------------------------------------------------------------------
+" TMUX Integration {{{
 "
 if $TMUX != ''
   " integrate movement between tmux/vim panes/windows
@@ -538,10 +553,9 @@ if $TMUX != ''
   " pay attention to the space before 'node', this is actually required as send-keys will eat the first key
 
 endif
+" }}}
 
-" ---------------------------------------------------------------------------
-" Filetype specific options
-" ---------------------------------------------------------------------------
+" Filetype specific options {{{
 "
 " Map markdown to recognized extension
     autocmd! BufRead,BufNewFile *.markdown set filetype=markdown
@@ -605,11 +619,9 @@ endif
 ""    \ 'ocaml': ['ocaml-language-server', '--stdio'],
 ""    \ }
 ""let g:LanguageClient_autoStart = 1
+" }}}
 
-""nnoremap <silent> gd :call LanguageClient_textDocument_definition()<cr>
-""nnoremap <silent> gf :call LanguageClient_textDocument_formatting()<cr>
-""nnoremap <silent> <cr> :call LanguageClient_textDocument_hover()<cr>
-
+" Grep {{{
 " fzf-rg
 " ADD COMMAND: :F
 let g:rg_command = '
@@ -622,14 +634,13 @@ command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>),
 set grepprg=rg\ --vimgrep
 " Use K to search for word under cursor
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+" }}}
 
-" Org-Mode
+" Org-Mode {{{
 let g:org_agenda_files=['~/org/index.org']
+" }}}
 
-" ---------------------------------------------------------------------------
-" CFR Specific
-" ---------------------------------------------------------------------------
-"
+" CFR Specific {{{
 
 " Switch to IDE mode
 function! CfrIde()
@@ -679,6 +690,10 @@ try
     source ~/.vimrc.local
 catch
 endtry
+" }}}
+
+" Added by Third Parties {{{
+
 " ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
 let s:opam_share_dir = system("opam config var share")
 let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')
@@ -711,3 +726,7 @@ for tool in s:opam_packages
   endif
 endfor
 " ## end of OPAM user-setup addition for vim / base ## keep this line
+
+" }}}
+
+" vim: set fdm=marker fmr={{{,}}} fdl=0 :
