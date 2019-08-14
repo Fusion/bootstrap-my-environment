@@ -136,6 +136,18 @@ alias pbpaste='xclip -selection clipboard -o'
         sudo yum install -y xclip
     fi
 }
+# clac RPN
+[ "$(which clac)" == "" ] && {
+    [ "$(which make)" != "" ] && {
+        echo "# Installing clac";
+        cd /tmp && \
+            curl -LO https://github.com/soveran/clac/archive/0.3.2.tar.gz && \
+            tar zxvf 0.3.2.tar.gz && \
+            cd clac-0.3.2 && \
+            make && \
+            mv clac ~/.local/bin/
+    }
+}
 
 
 # ░█░█░▀█▀░█▄█░░░█▀█░█░░░█░█░█▀▀░▀█▀░█▀█░█▀▀░░
