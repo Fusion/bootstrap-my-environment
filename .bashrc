@@ -73,6 +73,18 @@ alias l="ls -CF"
 # ░░█░░█░█░▀▀█░░█░░█▀█░█░░░█░░░█▀▀░█▀▄░▀▀█░░
 # ░▀▀▀░▀░▀░▀▀▀░░▀░░▀░▀░▀▀▀░▀▀▀░▀▀▀░▀░▀░▀▀▀░░
 
+# prepare
+[ -d ~/.local/bin ] || {
+    mkdir -p ~/.local/bin
+}
+export PATH=$PATH:$HOME/.local/bin:/home/linuxbrew/.linuxbrew/bin
+# on Ubuntu, refresh apt db if older than a month
+[ -f /var/lib/apt/periodic/update-success-stamp ] && {
+    freshness=$(( $(date +%s) - $(stat -c%Y /var/lib/apt/periodic/update-success-stamp) ))
+    [ $freshness -gt 2592000 ] && {
+        sudo apt-get update
+    }
+}
 # direnv
 [ "$(which direnv)" == "" ] && {
     echo "# Installing direnv";
@@ -166,6 +178,7 @@ alias pbpaste='xclip -selection clipboard -o'
 # ░░▀░░▀░▀░▀░▀░▀▀▀░▀▀▀░▀▀▀░▀▀▀░░
 
 export DISPLAY=unix:0
+export DISPLAY=:0.0
 export PULSE_SERVER=tcp:localhost
 alias k=kubectl
 export A='--all-namespaces'
@@ -194,7 +207,8 @@ export A='--all-namespaces'
 # ░█░░░█░█░█░░░█▀█░█░░░░
 # ░▀▀▀░▀▀▀░▀▀▀░▀░▀░▀▀▀░░
 
-export PATH=$PATH:$HOME/.local/bin:/home/linuxbrew/.linuxbrew/bin
 [ -f $HOME/.local/bashrc ] && { echo "Sourcing local settings"; . $HOME/.local/bashrc; }
 #
 [ -f ~/welcome ] && { . ~/welcome; }
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
