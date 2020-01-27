@@ -190,8 +190,9 @@ alias pbpaste='xclip -selection clipboard -o'
 # ░▀▄▀░█▀█░█▀▄░░█░░█░█░█░█░▀▀█░░
 # ░░▀░░▀░▀░▀░▀░▀▀▀░▀▀▀░▀▀▀░▀▀▀░░
 
-export DISPLAY=unix:0
-export DISPLAY=:0.0
+#export DISPLAY=unix:0
+#export DISPLAY=:0.0
+export DISPLAY=$(ip r l default | cut -d' ' -f3):0
 export PULSE_SERVER=tcp:localhost
 alias k=kubectl
 alias bide='BYOBU_WINDOWS=ide byobu'
