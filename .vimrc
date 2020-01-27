@@ -31,6 +31,7 @@
 " CHEAT SHEET:
 " comment out code: `gcc` or `<selection>gc`
 " add a gfx-type comment: `:r !toilet -f pagga " My comment "`
+" insert comment or other: <ctrl>v <shift>i ... <esc>
 "
 " REMOTE FILES:
 " editing a remote file: `{vi|:e} scp://host//path/[file.txt]` or use sshfs --
