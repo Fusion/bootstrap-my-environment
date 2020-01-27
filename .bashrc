@@ -135,6 +135,19 @@ unset fasd_cache
         sudo yum install -y bat
     fi
 }
+# byobu
+[ "$(which byobu)" == "" ] && {
+    echo "# Installing byobu";
+    if [ $PKGER == "brew" ]; then
+        brew install byobu
+    elif [ $PKGER == "apt" ]; then
+        sudo apt-get install -y byobu
+    elif [ $PKGER == "apk" ]; then
+        sudo apk add -y byobu
+    elif [ $PKGER == "yum" ]; then
+        sudo yum install -y byobu
+    fi
+}
 # clipboard from shell
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
@@ -181,6 +194,7 @@ export DISPLAY=unix:0
 export DISPLAY=:0.0
 export PULSE_SERVER=tcp:localhost
 alias k=kubectl
+alias bide='BYOBU_WINDOWS=ide byobu'
 export A='--all-namespaces'
 # golang
 [ -d /usr/local/go/bin ] && {
