@@ -49,7 +49,7 @@ case "$TERM" in
   xterm-color|*-256color) color_prompt=yes;;
 esac
 if [ "$color_prompt" = yes ]; then
-    PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\a '
 else
     PS1='\u@\h:\w\$ '
 fi
@@ -192,7 +192,13 @@ alias pbpaste='xclip -selection clipboard -o'
 
 #export DISPLAY=unix:0
 #export DISPLAY=:0.0
-export DISPLAY=$(ip r l default | cut -d' ' -f3):0
+#export DISPLAY=$(ip r l default | cut -d' ' -f3):0
+function fix-display() {
+    PORT="$(awk -F: '/winClipboardThreadProc/{print $2}' /mnt/c/Users/C-F-R/AppData/Local/Temp/VCXSrv.0.log)"
+    export DISPLAY="$(ip r l default | cut -d' ' -f3):${PORT//[$'\t\r\n ']}"
+    echo "DISPLAY now: $DISPLAY"
+}
+
 export PULSE_SERVER=tcp:localhost
 alias k=kubectl
 alias bide='BYOBU_WINDOWS=ide byobu'
@@ -215,8 +221,21 @@ export A='--all-namespaces'
     [ "${VTE_VERSION:-0}" -ge 3405 ] && {
       . /etc/profile.d/vte.sh;
       __vte_prompt_command;
+    }
 }
+
+_ssh() 
+{
+    local cur prev opts
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+    opts=$(grep '^Host' ~/.ssh/config ~/.ssh/config.d/* 2>/dev/null | grep -v '[?*]' | cut -d ' ' -f 2-)
+
+    COMPREPLY=( $(compgen -W "$opts" -- ${cur}) )
+    return 0
 }
+complete -F _ssh ssh
 
 # ░█░░░█▀█░█▀▀░█▀█░█░░░░
 # ░█░░░█░█░█░░░█▀█░█░░░░
@@ -227,3 +246,7 @@ export A='--all-namespaces'
 [ -f ~/welcome ] && { . ~/welcome; }
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
