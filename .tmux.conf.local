@@ -299,3 +299,4 @@ set -g status-position top
 # easier and faster switching between next/prev window
 bind-key -n C-p previous-window
 bind-key -n C-n next-window
+# NOTE: Have a look at <prefix>s to re-attach sessions!
