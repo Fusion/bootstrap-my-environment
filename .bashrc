@@ -66,7 +66,7 @@ alias ll="ls -alF"
 alias l="ls -CF"
 [ "$(whoami)" == "root" ] && { alias sudo=; }
 #
-[ "$OS" == "OSX" ] && { export PATH="~/bin/osx:${PATH}"; } || { export PATH="~/bin/linux:${PATH}"; }
+[ "$OS" == "OSX" ] && { export PATH="~/bin/osx:/opt/homebrew/bin:${PATH}"; } || { export PATH="~/bin/linux:${PATH}"; }
 
 
 # ░▀█▀░█▀█░█▀▀░▀█▀░█▀█░█░░░█░░░█▀▀░█▀▄░█▀▀░░
@@ -149,17 +149,19 @@ unset fasd_cache
     fi
 }
 # clipboard from shell
-alias pbcopy='xclip -selection clipboard'
-alias pbpaste='xclip -selection clipboard -o'
-[ "$(which xclip)" == "" ] && {
-    echo "# Installing xclip";
-    if [ $PKGER == "apt" ]; then
-        sudo apt-get install -y xclip
-    elif [ $PKGER == "apk" ]; then
-        sudo apk add -y xclip
-    elif [ $PKGER == "yum" ]; then
-        sudo yum install -y xclip
-    fi
+[ "$(which pbcopy)" == "" ] && {
+    alias pbcopy='xclip -selection clipboard'
+    alias pbpaste='xclip -selection clipboard -o'
+    [ "$(which xclip)" == "" ] && {
+        echo "# Installing xclip";
+        if [ $PKGER == "apt" ]; then
+            sudo apt-get install -y xclip
+        elif [ $PKGER == "apk" ]; then
+            sudo apk add -y xclip
+        elif [ $PKGER == "yum" ]; then
+            sudo yum install -y xclip
+        fi
+    }
 }
 # clac RPN
 [ "$(which clac)" == "" ] && {
